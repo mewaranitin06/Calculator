@@ -1,1 +1,279 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
+:root {
+  --bg: #2b2f3a;
+  --shadow-light: #363b48;
+  --shadow-dark: #1e2129;
+  --text-main: #e7e9ef;
+  --text-dim: #8b90a0;
+  --accent-amber: #f2a65a;
+  --accent-teal: #3fb8a6;
+  --accent-red: #e5766a;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+}
+
+/* Neumorphic raised surface (reusable feel) */
+.calculator {
+  width: 320px;
+  padding: 28px;
+  border-radius: 28px;
+  background: var(--bg);
+  box-shadow:
+    9px 9px 18px var(--shadow-dark),
+    -9px -9px 18px var(--shadow-light);
+}
+
+.display-wrapper {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+/* Recessed / pressed-in look for the display */
+.display {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 500;
+  color: var(--text-main);
+  font-size: 2.3rem;
+  text-align: right;
+  padding: 22px 18px;
+  border-radius: 18px;
+  background: var(--bg);
+  box-shadow:
+    inset 5px 5px 10px var(--shadow-dark),
+    inset -5px -5px 10px var(--shadow-light);
+  min-height: 68px;
+  overflow-x: auto;
+}
+
+.blur-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  backdrop-filter: blur(6px);
+  background: rgba(30, 33, 41, 0.75);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
+  padding: 8px;
+}
+
+.blur-overlay.show {
+  display: flex;
+}
+
+.blur-overlay span {
+  color: var(--text-main);
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+.blur-overlay button {
+  background: var(--accent-teal);
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  padding: 7px 16px;
+  border-radius: 10px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  box-shadow: 4px 4px 8px var(--shadow-dark);
+}
+
+.blur-overlay button:hover {
+  filter: brightness(1.06);
+}
+
+/* Buttons grid */
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+button {
+  padding: 18px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  color: var(--text-main);
+  background: var(--bg);
+  box-shadow:
+    5px 5px 10px var(--shadow-dark),
+    -5px -5px 10px var(--shadow-light);
+  transition: box-shadow 0.12s ease, transform 0.08s ease;
+}
+
+button:hover {
+  box-shadow:
+    3px 3px 6px var(--shadow-dark),
+    -3px -3px 6px var(--shadow-light);
+}
+
+/* Pressed-in effect on click — the core neumorphic interaction */
+button:active {
+  box-shadow:
+    inset 4px 4px 8px var(--shadow-dark),
+    inset -4px -4px 8px var(--shadow-light);
+  transform: scale(0.98);
+}
+
+.operator {
+  color: var(--accent-amber);
+}
+
+.clear {
+  color: var(--accent-red);
+}
+
+/* The one bold element — filled + colored glow, everything else stays neutral */
+.equal {
+  grid-column: span 2;
+  color: #fff;
+  background: linear-gradient(145deg, #48cdb9, #35a494);
+  box-shadow:
+    5px 5px 12px var(--shadow-dark),
+    -3px -3px 10px var(--shadow-light),
+    0 0 0 rgba(63, 184, 166, 0);
+}
+
+.equal:hover {
+  filter: brightness(1.05);
+}
+
+.equal:active {
+  box-shadow:
+    inset 4px 4px 8px rgba(0, 0, 0, 0.25),
+    inset -2px -2px 6px rgba(255, 255, 255, 0.15);
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay.show {
+  display: flex;
+}
+
+.modal {
+  width: 300px;
+  padding: 28px;
+  border-radius: 22px;
+  background: var(--bg);
+  color: var(--text-main);
+  position: relative;
+  box-shadow:
+    9px 9px 18px var(--shadow-dark),
+    -9px -9px 18px var(--shadow-light);
+}
+
+.close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: auto;
+  padding: 4px 8px;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+  background: none;
+  box-shadow: none;
+}
+
+.close-btn:hover {
+  color: var(--text-main);
+  box-shadow: none;
+}
+
+.tabs {
+  display: flex;
+  margin-bottom: 18px;
+  gap: 10px;
+}
+
+.tab-btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+  color: var(--text-dim);
+  background: var(--bg);
+  box-shadow:
+    4px 4px 8px var(--shadow-dark),
+    -4px -4px 8px var(--shadow-light);
+}
+
+.tab-btn.active {
+  color: #fff;
+  background: linear-gradient(145deg, #48cdb9, #35a494);
+  box-shadow:
+    inset 3px 3px 6px rgba(0, 0, 0, 0.2),
+    inset -2px -2px 6px rgba(255, 255, 255, 0.15);
+}
+
+.tab-content input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  border: none;
+  background: var(--bg);
+  color: var(--text-main);
+  font-family: 'Inter', sans-serif;
+  box-shadow:
+    inset 4px 4px 8px var(--shadow-dark),
+    inset -4px -4px 8px var(--shadow-light);
+}
+
+.tab-content input::placeholder {
+  color: var(--text-dim);
+}
+
+.tab-content.hidden {
+  display: none;
+}
+
+.primary-btn {
+  width: 100%;
+  color: #fff;
+  font-weight: 600;
+  background: linear-gradient(145deg, #48cdb9, #35a494);
+  box-shadow:
+    5px 5px 10px var(--shadow-dark),
+    -3px -3px 8px var(--shadow-light);
+}
+
+.primary-btn:hover {
+  filter: brightness(1.05);
+}
+
+.plan-note {
+  margin-top: 16px;
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  text-align: center;
+}
