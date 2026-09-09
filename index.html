@@ -1,1 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+<div class="calculator">
+  <div class="display-wrapper">
+    <div class="display" id="display">0</div>
+    <div class="blur-overlay" id="blurOverlay">
+      <span>🔒 Subscribe to see full result</span>
+      <button onclick="openModal()">Unlock Now</button>
+    </div>
+  </div>
+
+  <div class="buttons">
+    <button class="clear" onclick="clearDisplay()">C</button>
+    <button class="operator" onclick="appendValue('/')">÷</button>
+    <button class="operator" onclick="appendValue('*')">×</button>
+    <button class="operator" onclick="deleteLast()">⌫</button>
+
+    <button onclick="appendValue('7')">7</button>
+    <button onclick="appendValue('8')">8</button>
+    <button onclick="appendValue('9')">9</button>
+    <button class="operator" onclick="appendValue('-')">−</button>
+
+    <button onclick="appendValue('4')">4</button>
+    <button onclick="appendValue('5')">5</button>
+    <button onclick="appendValue('6')">6</button>
+    <button class="operator" onclick="appendValue('+')">+</button>
+
+    <button onclick="appendValue('1')">1</button>
+    <button onclick="appendValue('2')">2</button>
+    <button onclick="appendValue('3')">3</button>
+    <button onclick="appendValue('0')">0</button>
+
+    <button onclick="appendValue('.')">.</button>
+    <button class="equal" onclick="calculate()">=</button>
+  </div>
+</div>
+
+<!-- Subscription Modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <button class="close-btn" onclick="closeModal()">✕</button>
+
+    <div class="tabs">
+      <button class="tab-btn active" id="loginTabBtn" onclick="showTab('login')">Login</button>
+      <button class="tab-btn" id="signupTabBtn" onclick="showTab('signup')">Sign Up</button>
+    </div>
+
+    <div class="tab-content" id="loginTab">
+      <input type="email" placeholder="Email">
+      <input type="password" placeholder="Password">
+      <button class="primary-btn" onclick="subscribe()">Login &amp; Unlock</button>
+    </div>
+
+    <div class="tab-content hidden" id="signupTab">
+      <input type="text" placeholder="Full Name">
+      <input type="email" placeholder="Email">
+      <input type="password" placeholder="Create Password">
+      <button class="primary-btn" onclick="subscribe()">Sign Up &amp; Unlock</button>
+    </div>
+
+    <p class="plan-note">14 Day Trail- Premium Plan — Only ₹49/year</p>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html> 
